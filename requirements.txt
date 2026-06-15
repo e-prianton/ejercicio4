@@ -1,1 +1,1 @@
-# Aqui van los requirements del proyecto
+# Aqui van los requirements del proyecto y otras definiciones
