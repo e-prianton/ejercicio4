@@ -4,7 +4,7 @@ pipeline {
     environment {
         GIT_REPO           = 'https://github.com/e-prianton/ejercicio4.git'
         DEVELOP_BRANCH     = 'develop'
-        WORKING_BRANCH     = 'WorkingBranch'
+        WORKING_BRANCH     = 'workingbranch'
         GIT_CREDENTIALS    = '01'
     }
 
