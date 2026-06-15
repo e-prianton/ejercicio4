@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     environment {
-        GIT_REPO           = 'https://github.com/TU_USUARIO/TU_REPOSITORIO.git'
+        GIT_REPO           = 'https://github.com/e-prianton/ejercicio4.git'
         DEVELOP_BRANCH     = 'develop'
         WORKING_BRANCH     = 'WorkingBranch'
-        GIT_CREDENTIALS    = 'github-credentials'
+        GIT_CREDENTIALS    = '01'
     }
 
     triggers {
