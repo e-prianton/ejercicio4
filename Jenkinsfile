@@ -29,11 +29,13 @@ pipeline {
 
                 echo ">>> Haciendo merge de ${WORKING_BRANCH} sobre ${DEVELOP_BRANCH}..."
                 sh '''
-                    git fetch origin
+                    git config user.email "jenkins@ejercicio4.com"
+                    git config user.name "Jenkins"
+                    git fetch --all
                     git checkout develop
                     git merge origin/workingbranch --no-ff --no-commit
                     echo "Merge completado sin conflictos."
-                '''
+                '''  
             }
             post {
                 failure {
