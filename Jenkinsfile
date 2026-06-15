@@ -31,7 +31,7 @@ pipeline {
                 sh '''
                     git fetch origin
                     git checkout develop
-                    git merge origin/WorkingBranch --no-ff --no-commit
+                    git merge origin/workingbranch --no-ff --no-commit
                     echo "Merge completado sin conflictos."
                 '''
             }
