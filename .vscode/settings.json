@@ -1,0 +1,6 @@
+{
+    "python.defaultInterpreterPath": "${/home/emili/repos/prueba_tecnica_pw}/venv/bin/python",
+    "python.analysis.extraPaths": [
+        "/home/emili/repos/prueba_tecnica_pw/venv/lib/python3.8/site-packages"
+    ]
+}
