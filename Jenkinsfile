@@ -9,8 +9,7 @@ pipeline {
     }
 
     triggers {
-        // Al no tener webhook, Jenkins comprueba cambios cada minuto
-        pollSCM('* * * * *')
+        githubPush()
     }
 
     stages {
