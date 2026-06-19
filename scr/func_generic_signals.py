@@ -82,3 +82,95 @@ def trapezoidal_signal(t, frequency, amplitude, duty_low=0.0, duty_rise=0.25, du
     return y
 
 
+def square_signal(t, frequency, amplitude, duty=0.5, phase=0.0, offset=0.0):
+    """Genera una señal cuadrada configurable.
+
+    La señal alterna entre `offset` y `offset + amplitude` según el ciclo de trabajo
+    y la fase inicial.
+
+    Parámetros:
+    -----------
+    t : array-like
+        Vector de tiempos (s).
+    frequency : float
+        Frecuencia de la señal (Hz).
+    amplitude : float
+        Amplitud de pico de la señal (V).
+    duty : float, default=0.5
+        Fracción del periodo en nivel alto.
+    phase : float, default=0.0
+        Fase inicial en radianes.
+    offset : float, default=0.0
+        Desplazamiento DC en voltios.
+
+    Retorna:
+    --------
+    ndarray
+        Señal cuadrada (mismo tamaño que `t`).
+
+    Notas:
+    ------
+    - `frequency` y `amplitude` deben ser > 0.
+    - `duty` debe estar en el rango (0, 1).
+    - `offset` desplaza la señal hacia arriba.
+    """
+    t = np.asarray(t, dtype=float)
+    if frequency <= 0:
+        raise ValueError('frequency debe ser > 0')
+    if amplitude <= 0:
+        raise ValueError('amplitude debe ser > 0')
+    if duty <= 0 or duty >= 1:
+        raise ValueError('duty debe estar entre 0 y 1 (excluyendo los extremos)')
+    if not np.isfinite(phase):
+        raise ValueError('phase debe ser un número finito')
+    if offset < 0:
+        raise ValueError('offset debe ser >= 0')
+
+    period = 1.0 / frequency
+    t_mod = np.mod(t + phase / (2.0 * np.pi * frequency), period)
+    y = np.where(t_mod < duty * period, offset + amplitude, offset)
+    return y
+
+
+def sinusoidal_signal(t, frequency, amplitude, phase=0.0, offset=0.0):
+    """Genera una señal sinusoidal configurable.
+
+    La señal se define como: y(t) = offset + amplitude * sin(2*pi*frequency*t + phase)
+
+    Parámetros:
+    -----------
+    t : array-like
+        Vector de tiempos (s).
+    frequency : float
+        Frecuencia de la señal (Hz).
+    amplitude : float
+        Amplitud de pico de la señal (V).
+    phase : float, default=0.0
+        Fase inicial en radianes.
+    offset : float, default=0.0
+        Desplazamiento DC en voltios.
+
+    Retorna:
+    --------
+    ndarray
+        Señal sinusoidal (mismo tamaño que `t`).
+
+    Notas:
+    ------
+    - `frequency` y `amplitude` deben ser > 0.
+    - `offset` puede desplazar la señal en DC.
+    - La función devuelve la forma de onda analógica adecuada como entrada
+      para simulaciones o para muestreo/quantización posterior.
+    """
+    t = np.asarray(t, dtype=float)
+    if frequency <= 0:
+        raise ValueError('frequency debe ser > 0')
+    if amplitude <= 0:
+        raise ValueError('amplitude debe ser > 0')
+    if not np.isfinite(phase):
+        raise ValueError('phase debe ser un número finito')
+
+    y = offset + amplitude * np.sin(2.0 * np.pi * frequency * t + float(phase))
+    return y
+
+
